@@ -32,4 +32,44 @@ Quintus.ZombiesPlants = function(Q) {
       this.destroy();
     }
   });
+
+  Q.plantTypes = {
+    carnivorous: {
+      asset: "carnivorousplant.png",
+      cost: 100,
+      energy: 10
+    },
+    corn: {
+      asset: 'corn.png',
+      cost: 150,
+      energy: 20
+    },
+    chilli: {
+      asset: 'chilli.png',
+      cost: 50,
+      energy: 10
+    },
+    sunflower: {
+      asset: 'sunflower.png',
+      cost: 75,
+      energy: 15
+    }
+  };
+
+  Q.Sprite.extend("Plant", {
+    init: function(p) {
+      this._super(p, {
+        type: Q.SPRITE_PLANT
+      });
+      this.add("2d");
+    },
+    step: function(dt) {
+      if(this.p.energy <= 0) {
+        this.destroy();
+      }
+    },
+    takeDamage: function(damage) {
+      this.p.energy -= damage/50;
+    }
+  });
 };

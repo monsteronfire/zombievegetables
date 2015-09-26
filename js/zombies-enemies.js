@@ -20,11 +20,19 @@ Quintus.ZombiesEnemies = function(Q) {
   Q.Sprite.extend("Zombie", {
     init: function(p) {
       this._super(p, {
-        asset: "zombie1.png",
         type: Q.SPRITE_ZOMBIE,
         collisionMask: Q.SPRITE_PLANT | Q.SPRITE_BULLET
       });
       this.add("2d");
+
+      this.p.originalVx = this.p.vx;
+
+      this.on("bump.left", function(collision) {
+        if(collision.obj.isA("Plant")) {
+          collision.obj.takeDamage(this.p.damage);
+        }
+        this.p.vx = this.p.originalVx;
+      });
     },
 
     step: function(dt) {

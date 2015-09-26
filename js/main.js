@@ -25,28 +25,40 @@ window.addEventListener("load", function() {
 
     var zombie1 = new Q.Zombie(
       Q._extend({x: 900, y: 300}, Q.zombieTypes['skeleton'])
-    );              
+    );
     var zombie2 = new Q.Zombie(
       Q._extend({x: 900, y: 100},Q.zombieTypes['basic'])
-    );              
+    );     
     var zombie3 = new Q.Zombie(
       Q._extend({x: 900, y: 600},Q.zombieTypes['chicken'])
-    );   
+    );
+
+    var plant1 = new Q.Plant(
+      Q._extend({x: 600, y: 600},Q.plantTypes['carnivorous'])
+    );
+
+    var plant2 = new Q.Plant(
+      Q._extend({x: 600, y: 100},Q.plantTypes['carnivorous'])
+    );
 
     var sidePanel = new Q.SidePanel();
 
     stage.insert(level);
+    
     stage.insert(zombie1);
     stage.insert(zombie2);
     stage.insert(zombie3);
 
+    stage.insert(plant1);
+    stage.insert(plant2);
+
     stage.insert(sidePanel);
   });
 
-  Q.load("background.png, sun.png, zombie1.png, zombie2.png, zombie3.png, chicken.png", function() {
+  Q.load("background.png, sun.png, zombie1.png, zombie2.png, zombie3.png, chicken.png, carnivorousplant.png, corn.png, chilli.png, sunflower.png", function() {
     Q.state.reset({sun: 200});
     Q.stageScene("level", 0);
     Q.stageScene("sun", 1);
-    
+
   })
 });
