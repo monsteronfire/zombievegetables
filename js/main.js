@@ -1,7 +1,7 @@
 window.addEventListener("load", function() {
   var Q = window.Q = Quintus({development: true})
     .include("Sprites, Scenes, 2D, UI, Input, Touch")
-    .include("ZombiesGUI, ZombiesEnemies, ZombiesPlants")
+    .include("ZombiesGUI, ZombiesEnemies, ZombiesPlants, ZombiesGameplay")
     .setup({
       width: 1080,
       height: 720,
@@ -16,22 +16,12 @@ window.addEventListener("load", function() {
   Q.SPRITE_PLANT = 8;
   Q.SPRITE_BULLET = 16;
   Q.SPRITE_GROUND = 32;
+  Q.SPRITE_UI = 64;
 
-  Q.touch(Q.SPRITE_SUN);
+  Q.touch(Q.SPRITE_SUN | Q.SPRITE_GROUND | Q.SPRITE_UI);
 
   Q.scene("level", function(stage) {
-    var background = new Q.Sprite({
-      x: 120 + 960/2,
-      y: 720/2,
-      asset: "background.png",
-      type: Q.SPRITE_GROUND
-    });
-
-    var sun1 = new Q.Sun();
-    var sun2 = new Q.Sun();
-    var sun3 = new Q.Sun();
-    var sun4 = new Q.Sun();
-    var sun5 = new Q.Sun();
+    var level = new Q.Level();
 
     var zombie1 = new Q.Zombie(
       Q._extend({x: 900, y: 300}, Q.zombieTypes['skeleton'])
@@ -45,20 +35,29 @@ window.addEventListener("load", function() {
 
     var sidePanel = new Q.SidePanel();
 
-    stage.insert(background);
+    stage.insert(level);
     stage.insert(zombie1);
     stage.insert(zombie2);
-    stage.insert(sun1);
-    stage.insert(sun2);
-    stage.insert(sun3);
-    stage.insert(sun4);
-    stage.insert(sun5);
     stage.insert(zombie3);
+    
     stage.insert(sidePanel);
   });
 
   Q.load("background.png, sun.png, zombie1.png, zombie2.png, zombie3.png, chicken.png", function() {
     Q.state.reset({sun: 120});
-    Q.stageScene("level");
+    Q.stageScene("level", 0);
+    Q.stageScene("sun", 1);
+
+    var sun1 = new Q.Sun();
+    var sun2 = new Q.Sun();
+    var sun3 = new Q.Sun();
+    var sun4 = new Q.Sun();
+    var sun5 = new Q.Sun();
+
+    Q.stage(1).insert(sun1);
+    Q.stage(1).insert(sun2);
+    Q.stage(1).insert(sun3);
+    Q.stage(1).insert(sun4);
+    Q.stage(1).insert(sun5);
   })
 });

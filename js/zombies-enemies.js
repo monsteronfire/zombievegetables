@@ -22,7 +22,7 @@ Quintus.ZombiesEnemies = function(Q) {
       this._super(p, {
         asset: "zombie1.png",
         type: Q.SPRITE_ZOMBIE,
-        collisionMask: Q.SPRITE_PLANT || Q.SPRITE_BULLET
+        collisionMask: Q.SPRITE_PLANT | Q.SPRITE_BULLET
       });
       this.add("2d");
     },
