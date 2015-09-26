@@ -39,25 +39,14 @@ window.addEventListener("load", function() {
     stage.insert(zombie1);
     stage.insert(zombie2);
     stage.insert(zombie3);
-    
+
     stage.insert(sidePanel);
   });
 
   Q.load("background.png, sun.png, zombie1.png, zombie2.png, zombie3.png, chicken.png", function() {
-    Q.state.reset({sun: 120});
+    Q.state.reset({sun: 200});
     Q.stageScene("level", 0);
     Q.stageScene("sun", 1);
-
-    var sun1 = new Q.Sun();
-    var sun2 = new Q.Sun();
-    var sun3 = new Q.Sun();
-    var sun4 = new Q.Sun();
-    var sun5 = new Q.Sun();
-
-    Q.stage(1).insert(sun1);
-    Q.stage(1).insert(sun2);
-    Q.stage(1).insert(sun3);
-    Q.stage(1).insert(sun4);
-    Q.stage(1).insert(sun5);
+    
   })
 });
