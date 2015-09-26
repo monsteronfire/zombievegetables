@@ -58,6 +58,7 @@ window.addEventListener("load", function() {
   });
 
   Q.load("background.png, sun.png, zombie1.png, zombie2.png, zombie3.png, chicken.png", function() {
+    Q.state.reset({sun: 120});
     Q.stageScene("level");
   })
 });
