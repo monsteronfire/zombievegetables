@@ -1,4 +1,70 @@
 Quintus.ZombiesPlants = function(Q) {
+  Q.plantTypes = {
+    carnivorous: {
+      asset: "carnivorousplant.png",
+      cost: 100,
+      energy: 10,
+      isShooter: true,
+      shootingFrequency: 3,
+      damage: 2, 
+    },
+    corn: {
+      asset: 'corn.png',
+      cost: 150,
+      energy: 20,
+      isShooter: true,
+      shootingFrequency: 5,
+      damage: 3, 
+    },
+    chilli: {
+      asset: 'chilli.png',
+      cost: 50,
+      energy: 10
+    },
+    sunflower: {
+      asset: 'sunflower.png',
+      cost: 75,
+      energy: 15
+    }
+  };
+
+  Q.Sprite.extend("Plant", {
+    init: function(p) {
+      this._super(p, {
+        type: Q.SPRITE_PLANT
+      });
+      this.add("2d");
+
+      if(this.p.isShooter) {
+        this.p.timeToShoot = this.p.shootingFrequency;
+      }
+    },
+    step: function(dt) {
+      if(this.p.isShooter) {
+          this.p.timeToShoot -= dt;
+
+          if(this.p.timeToShoot <= 0) {
+            this.p.timeToShoot = this.p.shootingFrequency; 
+
+            //create bullet.. shoot!
+            this.stage.insert(new Q.Bullet({
+              x: this.p.x,
+              y: this.p.y,
+              damage: this.p.damage
+            }));
+          }
+        }  
+
+        //check for death
+        if(this.p.energy <= 0) {
+            this.destroy();
+        }
+    },
+    takeDamage: function(damage) {
+      this.p.energy -= damage/50;
+    }
+  });
+
   Q.Sprite.extend("Sun", {
     init: function(p) {
       this._super(p, {
@@ -26,50 +92,26 @@ Quintus.ZombiesPlants = function(Q) {
     },
 
     touch: function(touch) {
-      console.log(touch);
-      console.log("Sun Grarbt");
-      Q.state.inc("sun", 100);
+      Q.state.inc('sun', 25);  
       this.destroy();
     }
   });
 
-  Q.plantTypes = {
-    carnivorous: {
-      asset: "carnivorousplant.png",
-      cost: 100,
-      energy: 10
-    },
-    corn: {
-      asset: 'corn.png',
-      cost: 150,
-      energy: 20
-    },
-    chilli: {
-      asset: 'chilli.png',
-      cost: 50,
-      energy: 10
-    },
-    sunflower: {
-      asset: 'sunflower.png',
-      cost: 75,
-      energy: 15
-    }
-  };
-
-  Q.Sprite.extend("Plant", {
+   Q.Sprite.extend('Bullet', {
     init: function(p) {
       this._super(p, {
-        type: Q.SPRITE_PLANT
+        type: Q.SPRITE_BULLET,
+        asset: 'bullet.png',
+        vx: 300
       });
-      this.add("2d");
+      this.add('2d');  
     },
     step: function(dt) {
-      if(this.p.energy <= 0) {
+      //destroy if out of range
+      if(this.p.x >= 1110) {
         this.destroy();
       }
-    },
-    takeDamage: function(damage) {
-      this.p.energy -= damage/50;
     }
   });
+
 };

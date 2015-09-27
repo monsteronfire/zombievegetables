@@ -34,11 +34,15 @@ window.addEventListener("load", function() {
     );
 
     var plant1 = new Q.Plant(
-      Q._extend({x: 600, y: 600},Q.plantTypes['carnivorous'])
+      Q._extend({x: 600, y: 600},Q.plantTypes['corn'])
     );
 
     var plant2 = new Q.Plant(
       Q._extend({x: 600, y: 100},Q.plantTypes['carnivorous'])
+    );
+
+    var plant3 = new Q.Plant(
+      Q._extend({x: 600, y: 500},Q.plantTypes['chilli'])
     );
 
     var sidePanel = new Q.SidePanel();
@@ -51,6 +55,7 @@ window.addEventListener("load", function() {
 
     stage.insert(plant1);
     stage.insert(plant2);
+    stage.insert(plant3);
 
     stage.insert(sidePanel);
   });
