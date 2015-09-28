@@ -14,27 +14,23 @@ Quintus.ZombiesGUI = function(Q) {
 
       this.on("inserted");
 
-      var panel = this;
-      Q.state.on("change.sun", function() {
-        panel.refreshedStats();
+      Q.state.on('change.sun', function() {
+          Q('SidePanel',0).items[0].refreshStats();
       });
     },
 
     inserted: function() {
-      var sun = new Q.Sprite({
-        asset: "sun.png",
-        x: 60,
-        y: 40
-      });
+      this.stage.insert(new Q.Sprite({
+          asset: 'sun.png',
+          x: 60,
+          y: 40
+      }));
 
-      this.stage.insert(sun);
-      this.totalSun = new Q.UI.Text({
-        x: 60,
-        y: 100,
-        label: " "
-      });
-
-      this.stage.insert(this.totalSun);
+      this.totalSun = this.stage.insert(new Q.UI.Text({
+          x: 60,
+          y: 100,
+          label: '100'
+      }));
       this.refreshedStats();
     },
 

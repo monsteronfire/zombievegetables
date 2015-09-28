@@ -11,7 +11,7 @@ Quintus.ZombiesGameplay = function(Q) {
         sunFrequency: {min: 1, max: 5}
       });
 
-      this.p.timeNextSun = this.getTimeNextSun();
+      this.timeNextSun = this.getTimeNextSun();
 
       this.on("touch");
     },
